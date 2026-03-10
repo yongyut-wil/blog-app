@@ -1,4 +1,4 @@
-name: Deploy Backend
+name: Deploy Frontend
 
 on:
   push:
@@ -28,11 +28,11 @@ jobs:
           git clone https://x-access-token:${{ secrets.INFRA_REPO_TOKEN }}@github.com/yongyut-wil/k8s-infra-webapp.git
           cd k8s-infra-webapp
           
-          # เปลี่ยน Tag ในไฟล์ backend.yaml เป็น Commit ล่าสุด
-          sed -i "s|image: ${{ secrets.DOCKER_USERNAME }}/blog-app:.*|image: ${{ secrets.DOCKER_USERNAME }}/blog-app:${{ github.sha }}|g" backend.yaml
+          # เปลี่ยน Tag ในไฟล์ frontend.yaml เป็น Commit ล่าสุด
+          sed -i "s|image: ${{ secrets.DOCKER_USERNAME }}/blog-app:.*|image: ${{ secrets.DOCKER_USERNAME }}/blog-app:${{ github.sha }}|g" frontend.yaml
           
           git config user.name "GitHub Actions Bot"
           git config user.email "actions@github.com"
-          git add backend.yaml
-          git commit -m "Update backend image tag to ${{ github.sha }}"
+          git add frontend.yaml
+          git commit -m "Update frontend image tag to ${{ github.sha }}"
           git push
